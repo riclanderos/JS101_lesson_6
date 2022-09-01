@@ -4,6 +4,8 @@ const HUMAN_MARKER = 'X';
 const COMPUTER_MARKER = 'O';
 
 function displayBoard(board) {
+  console.clear();
+  
   console.log('');
   console.log('     |     |');
   console.log(`  ${board['1']}  |  ${board['2']}  |  ${board['3']}`);
@@ -37,6 +39,14 @@ function emptySquares(board) {
   return Object.keys(board).filter(key => board[key] === INITIAL_MARKER);
 }
 
+function boardFull(board) {
+  return emptySquares(board).length === 0;
+}
+
+function someoneWon(board) {
+  return false;
+}
+
 function playerChoosesSquare(board) {
   let square;
 
@@ -65,7 +75,11 @@ function computerChoosesSquare(board) {
 
 let board = initializeBoard();
 displayBoard(board);
+
+while (true) {
 playerChoosesSquare(board);
-displayBoard(board);
 computerChoosesSquare(board);
 displayBoard(board);
+
+if (someoneWon(board) || boardFull(board)) break;
+}
